@@ -8,7 +8,9 @@ const app = new Koa();
 
 app.use(cors());
 app.use(koaBody({
-   json: true
+   multipart: true,
+   json: true,
+   urlencoded: true
 }));
 
 const notes = [{
@@ -29,11 +31,13 @@ router.get('/notes', async (ctx, next) => {
 });
 
 router.post('/notes', async (ctx, next) => {
-   const seqObj = JSON.parse(ctx.request.body)
+   console.log(ctx.request.body)
+   const seqObj = ctx.request.body;
    notes.push({
       ...seqObj,
       id: nextId++
    });
+   console.log(notes)
    ctx.response.status = 204;
 });
 
