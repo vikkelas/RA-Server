@@ -15,11 +15,11 @@ app.use(koaBody({
 
 const notes = [{
       id: 0,
-      text: 'asdasdasdasdasdasd'
+      text: 'Сделать кофе'
    },
    {
       id: 1,
-      text: 'asddasdadsdssdsadasdasdasd'
+      text: 'Починить машину'
    },
 ];
 let nextId = 2;
@@ -31,13 +31,11 @@ router.get('/notes', async (ctx, next) => {
 });
 
 router.post('/notes', async (ctx, next) => {
-   console.log(ctx.request.body)
-   const seqObj = ctx.request.body;
+   const seqObj = JSON.parse(ctx.request.body);
    notes.push({
       ...seqObj,
       id: nextId++
    });
-   console.log(notes)
    ctx.response.status = 204;
 });
 
